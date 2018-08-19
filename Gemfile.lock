@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/radar/by_star
+  revision: 422c06ec1ea8ce633aca014a4403fbac92630057
+  specs:
+    by_star (3.0.0)
+      activesupport (> 3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -47,6 +54,7 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.3)
     byebug (10.0.1)
+    chronic (0.10.2)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -165,7 +173,9 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass (~> 3.3.6)
+  by_star!
   byebug
+  chronic
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)
   jquery-rails
