@@ -46,7 +46,6 @@
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-12">
             <%= link_to "<span class='glyphicon glyphicon-plus'></span> New Expense".html_safe, new_expense_path, remote: true, class: "btn btn-success pull-left" %>
-            <span ></span>
           <h4 class="dropdown pull-right">
             <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">April 2016 <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
@@ -98,45 +97,19 @@
                 $ <%= expense.amount %>
               </div>
               <div class="actions">
-                <a href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                <a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                <a href="#">
+                  <%= link_to "<span class='glyphicon glyphicon-edit'></span> Edit".html_safe, edit_expense_path(expense), remote: true %>
+                </a>
+                <a href="#">
+                  <%= link_to "<span class='glyphicon glyphicon-trash'></span> Delete".html_safe, expense, remote: true, :method => :delete, data: {confirm: "Seguro eliminará el gasto:  #{expense.name}"}%>
+                </a>
             </td>
           </tr>
         </tbody>
         <% end %>
       </table>
-
-
+      <%= render 'dialog' %>
 
     </div>
   </div>
-</div>
-
-
-
-
-
-
-<div class="container">
-
-  <div class="new-customer"></div>
-
-  <table id class="table table-bordered table-striped">
-    <thead>
-    <tr>
-      <th>Expense</th>
-      <th>Amount</th>
-      <th>Date</th>
-      <th>Category</th>
-      <th>Purchase</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody id="customers">
-    <%= render @expenses %>
-    </tbody>
-  </table>
-
-  <%= render 'dialog' %>
-
 </div>
