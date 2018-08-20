@@ -1,4 +1,6 @@
 class ExpensesController < ApplicationController
+  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+
   def index
     @expenses = Expense.all
     @expenses = @expenses.where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
@@ -13,25 +15,38 @@ class ExpensesController < ApplicationController
   end
 
   def create
-    @expense = Expense.create(expense_params)
-    if @expense.save
-      redirect_to expenses_path
-    else
-      @errors = @expense.errors.full_messages
-      render :new
+    @expense = Expense.create(expenses_params)
+
+    respond_to do |format|
+      if @expense.save
+        format.json { head :no_content }
+        format.js
+      else
+        format.json { render json: @expense.errors.full_messages, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit
-    @expense = Expense.find(params[:id])
   end
 
   def update
-    expense = Expense.find(params[:id])
-    if expense.update(expense_params)
-      redirect_to expenses_path
-    else
-      render :edit
+    respond_to do |format|
+      if @expense.update(expenses_params)
+        format.json { head :no_content }
+        format.js
+      else
+        format.json { render json: @expense.errors.full_messages, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @expense.destroy
+    respond_to do |format|
+      format.js
+      format.html { redirect_to posts_url }
+      format.json { head :no_content }
     end
   end
 
@@ -42,8 +57,12 @@ class ExpensesController < ApplicationController
   end
 
   private
+  def set_expense
+    @expense = Expense.find(params[:id])
+  end
+
   def expenses_params
-    params.require(:expense).permit(:name, :amount, :category_id, :date_expense, :purchase_id)
+    params.require(:expense).permit(:name, :amount, :date_expense, :category_id, :purchase_id)
   end
 
 end
