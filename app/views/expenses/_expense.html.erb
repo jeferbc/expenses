@@ -1,7 +1,37 @@
 <tr id="customer_<%= expense.id %>">
-  <td><%= expense.name %></td>
-  <td><%= expense.amount %></td>
-  <td><%= expense.date_expense %></td>
-  <td><%= Category.find_by(id: expense.category_id).name %></td>
-  <td><%= Purchase.find_by(id: expense.purchase_id).name_purchases %></td>
+  <td class="date">
+    <div class="day">
+      <%= expense.date_expense.strftime('%d') %>
+    </div>
+    <div class="month">
+      <%= expense.date_expense.strftime('%B') %>
+    </div>
+  </td>
+  <td>
+    <div>
+      <span class="type">
+        <%= Purchase.find_by(id: expense.purchase_id).name_purchases %>
+      </span>
+    </div>
+    <div>
+      <span class="concept">
+        <%= expense.name %>
+      </span>
+    </div>
+  </td>
+  <td class="category text-right">
+    <%= Category.find_by(id: expense.category_id).name %>
+  </td>
+  <td class="text-right" style="width: 170px;">
+    <div class="amount">
+      $ <%= expense.amount %>
+    </div>
+    <div class="actions">
+      <a href="#">
+        <%= link_to "<span class='glyphicon glyphicon-edit'></span> Edit".html_safe, edit_expense_path(expense), remote: true %>
+      </a>
+      <a href="#">
+        <%= link_to "<span class='glyphicon glyphicon-trash'></span> Delete".html_safe, expense, remote: true, method: :delete %>
+      </a>
+  </td>
 </tr>
