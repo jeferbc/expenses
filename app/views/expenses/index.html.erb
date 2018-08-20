@@ -17,37 +17,22 @@
     </div>
     <div class="col-md-9 index-data">
       <div class="row" style="margin-top: 10px;">
-        <div class="summary-box col-md-4 text-center">
-          <% if (@expenses.sum(:amount)) == 0 %>
-            <div class="summary-value">$ 0</div>
-          <% else %>
-            <div class="summary-value">
-              $ <%= @expenses.sum(:amount) %>
-            </div>
-          <% end %>
-          <div class="summary-label">Total</div>
-        </diV>
-        <div class="summary-box col-md-4 text-center">
-          <div class="summary-value"><%= @expenses.count(:id) %></div>
-          <div class="summary-label">Transactions</div>
+
+        <div id="sums" class="summary-box col-md-4 text-center">
         </div>
-        <div class="summary-box col-md-4 text-center">
-          <% if (@expenses.sum(:amount)) == 0 %>
-            <div class="summary-value">$ 0</div>
-          <% else %>
-            <div class="summary-value">
-              $ <%= @expenses.sum(:amount) / @expenses.count(:id) %>
-            </div>
-          <% end %>
-          <div class="summary-label">Average</div>
-        </div>
+
+
+
       </div>
 
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-12">
             <%= link_to "<span class='glyphicon glyphicon-plus'></span> New Expense".html_safe, new_expense_path, remote: true, class: "btn btn-success pull-left" %>
           <h4 class="dropdown pull-right">
-            <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">April 2016 <span class="caret"></span></button>
+            <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">
+
+              <span class="caret"></span>
+            </button>
             <ul class="dropdown-menu" role="menu">
               <li role="presentation"><a href="#">April 2016</a></li>
               <li role="presentation"><a href="#">March 2016</a></li>
@@ -59,55 +44,18 @@
 
       <table id="expenses-table" class="table table-hover" style="margin-top: 20px;">
         <thead>
-          <tr>
-            <th class="text-center">Día</th>
-            <th>Concepto</th>
-            <th class="text-right">Categoría</th>
-            <th class="text-right">Valor</th>
-          </tr>
+        <tr>
+          <th class="text-center">Día</th>
+          <th>Concepto</th>
+          <th class="text-right">Categoría</th>
+          <th class="text-right">Valor</th>
+        </tr>
         </thead>
-        <% @expenses.each do |expense| %>
-        <tbody>
-          <tr>
-            <td class="date">
-              <div class="day">
-                <%= expense.date_expense.strftime('%d') %>
-              </div>
-              <div class="month">
-                <%= expense.date_expense.strftime('%B') %>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="type">
-                  <%= Purchase.find_by(id: expense.purchase_id).name_purchases %>
-                </span>
-              </div>
-              <div>
-                <span class="concept">
-                  <%= expense.name %>
-                </span>
-              </div>
-            </td>
-            <td class="category text-right">
-              <%= Category.find_by(id: expense.category_id).name %>
-            </td>
-            <td class="text-right" style="width: 170px;">
-              <div class="amount">
-                $ <%= expense.amount %>
-              </div>
-              <div class="actions">
-                <a href="#">
-                  <%= link_to "<span class='glyphicon glyphicon-edit'></span> Edit".html_safe, edit_expense_path(expense), remote: true %>
-                </a>
-                <a href="#">
-                  <%= link_to "<span class='glyphicon glyphicon-trash'></span> Delete".html_safe, expense, remote: true, :method => :delete, data: {confirm: "Seguro eliminará el gasto:  #{expense.name}"}%>
-                </a>
-            </td>
-          </tr>
+        <tbody id="customers">
+        <%= render @expenses %>
         </tbody>
-        <% end %>
       </table>
+
       <%= render 'dialog' %>
 
     </div>

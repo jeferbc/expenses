@@ -5,7 +5,7 @@ class ExpensesController < ApplicationController
     @expenses = Expense.all
     @expenses = @expenses.where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
     @expenses = @expenses.where("purchase_id LIKE :purchase_id", purchase_id: "%#{params[:purchase_id]}%")
-    @expenses = @expenses.by_month(params[:month])
+    # @expenses = @expenses.by_month(params[:month])
   end
 
   def new
@@ -42,18 +42,16 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
-    @expense.destroy
-    respond_to do |format|
-      format.js
-      format.html { redirect_to posts_url }
-      format.json { head :no_content }
-    end
-  end
+    @expense = Expense.find(params[:id])
 
-  def destroy
-    expense = Expense.find(params[:id])
-    expense.destroy
-    redirect_to expenses_path
+    respond_to do |format|
+      if @expense.destroy
+        format.json { head :no_content }
+        format.js
+      else
+        format.json { render json: @expense.errors.full_messages, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
