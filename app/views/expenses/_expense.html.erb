@@ -1,0 +1,7 @@
+<tr id="customer_<%= expense.id %>">
+  <td><%= expense.name %></td>
+  <td><%= expense.amount %></td>
+  <td><%= expense.date_expense %></td>
+  <td><%= Category.find_by(id: expense.category_id).name %></td>
+  <td><%= Purchase.find_by(id: expense.purchase_id).name_purchases %></td>
+</tr>

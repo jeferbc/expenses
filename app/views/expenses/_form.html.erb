@@ -1,0 +1,41 @@
+<%= form_for(@expense, remote: true, :html => { :role => "form" }) do |f| %>
+  <div id="error_explanation" class="bg-danger text-danger">
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :name, :class => "control-label" %>
+        <%= f.text_field :name, :class => "form-control first_input"  %>
+      </div>
+      <div class="form-group">
+        <%= f.label :amount, :class => "control-label" %>
+        <%= f.text_field :amount, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :date_expense, :class => "control-label" %>
+        <%= f.text_field :date_expense, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.collection_select(:category_id, Category.all, :id, :name) %>
+      </div>
+      <div class="form-group">
+        <%= f.collection_select(:purchase_id, Purchase.all, :id, :name_purchases) %>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= f.submit  @expense.new_record? ? "Create Create" : "Update Expense", :class => "btn btn-primary" %>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+<% end %>
