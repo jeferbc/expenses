@@ -2,10 +2,16 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
 
   def index
-    @expenses = Expense.all
-    @expenses = @expenses.where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
-    @expenses = @expenses.where("purchase_id LIKE :purchase_id", purchase_id: "%#{params[:purchase_id]}%")
-    # @expenses = @expenses.by_month(params[:month])
+    @tab = :expenses
+    if params[:category_id]
+      @expenses = Expense.where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
+    elsif params[:purchase_id]
+      @expenses = Expense.where("purchase_id LIKE :purchase_id", purchase_id: "%#{params[:purchase_id]}%")
+    elsif params[:month]
+      @expenses = Expense.all.by_month(params[:month])
+    else
+      @expenses = Expense.all
+    end
   end
 
   def new
@@ -19,7 +25,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
-        format.json { head :no_content }
+        format.json { head :no_content}
         format.js
       else
         format.json { render json: @expense.errors.full_messages, status: :unprocessable_entity }
