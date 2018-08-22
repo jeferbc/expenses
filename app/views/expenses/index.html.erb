@@ -50,7 +50,8 @@
               </div>
             <% else %>
               <div class="summary-value">
-                $ <%= @expenses.sum(:amount) / @expenses.count(:id) %>
+                <% average = number_with_precision(@expenses.sum(:amount) / @expenses.count(:id), :precision => 2) %>
+                $ <%= average %>
               </div>
             <% end %>
             <div class="summary-label">Average</div>

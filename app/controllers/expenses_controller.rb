@@ -2,7 +2,6 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tab = :expenses
     if params[:category_id]
       @expenses = Expense.where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
     elsif params[:purchase_id]
@@ -10,7 +9,7 @@ class ExpensesController < ApplicationController
     elsif params[:month]
       @expenses = Expense.all.by_month(params[:month])
     else
-      @expenses = Expense.all
+      @expenses = Expense.all.by_month(Date.today)
     end
   end
 
