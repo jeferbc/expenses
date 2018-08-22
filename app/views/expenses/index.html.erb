@@ -66,8 +66,11 @@
           <%= link_to "<span class='glyphicon glyphicon-plus'></span> New Expense".html_safe, new_expense_path, remote: true, class: "btn btn-success pull-left", id: "nuevo" %>
           <h4 class="dropdown pull-right">
             <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">
+
+
               <% @date = Date.today .strftime("%B %Y") %>
               <%= link_to  "#{@date}", expenses_path(month: @date) %>
+
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">

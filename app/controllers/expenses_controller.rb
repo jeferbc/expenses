@@ -2,6 +2,7 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
 
   def index
+    @tab = :expenses
     if params[:category_id]
       @expenses = Expense.where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
     elsif params[:purchase_id]
@@ -25,7 +26,7 @@ class ExpensesController < ApplicationController
     respond_to do |format|
       if @expense.save
         format.json { head :no_content}
-        format.js
+        format.js { flash[:notice] =  'Expense has been create successfully'}
       else
         format.json { render json: @expense.errors.full_messages, status: :unprocessable_entity }
       end
@@ -38,8 +39,8 @@ class ExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @expense.update(expenses_params)
-        format.json { head :no_content }
-        format.js
+        format.json { head }
+        format.js { flash[:notice] =  'Expense has been updated successfully'}
       else
         format.json { render json: @expense.errors.full_messages, status: :unprocessable_entity }
       end
@@ -52,7 +53,7 @@ class ExpensesController < ApplicationController
     respond_to do |format|
       if @expense.destroy
         format.json { head :no_content }
-        format.js
+        format.js { flash[:notice] =  'Expense DELETE'}
       else
         format.json { render json: @expense.errors.full_messages, status: :unprocessable_entity }
       end

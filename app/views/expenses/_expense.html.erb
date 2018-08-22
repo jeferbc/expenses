@@ -31,7 +31,7 @@
         <%= link_to "<span class='glyphicon glyphicon-edit'></span> Edit".html_safe, edit_expense_path(expense), remote: true %>
       </a>
       <a href="#">
-        <%= link_to "<span class='glyphicon glyphicon-trash'></span> Delete".html_safe, expense, remote: true, method: :delete %>
+        <%= link_to "<span class='glyphicon glyphicon-trash'></span> Delete".html_safe, expense, remote: true, method: :delete, data: {confirm: "Delete Expense: #{expense.name}"} %>
       </a>
   </td>
 </tr>

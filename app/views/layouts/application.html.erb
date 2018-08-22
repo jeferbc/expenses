@@ -32,11 +32,10 @@
       </div>
     </nav>
 
-    <% if flash[:notice] %>
-      <div class="alert alert-info"><%= flash[:notice] %></div>
-    <% end %>
 
+    <div id="flash_hook"></div>
 
     <%= yield %>
+
   </body>
 </html>
