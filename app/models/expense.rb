@@ -8,4 +8,5 @@ class Expense < ApplicationRecord
 
   by_star_field :date_expense
 
+
 end
