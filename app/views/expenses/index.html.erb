@@ -68,8 +68,7 @@
             <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">
 
 
-              <% @date = Date.today .strftime("%B %Y") %>
-              <%= link_to  "#{@date}", expenses_path(month: @date) %>
+              <%= @date = Date.today.strftime("%B %Y") %>
 
               <span class="caret"></span>
             </button>
