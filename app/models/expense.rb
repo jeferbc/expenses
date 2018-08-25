@@ -8,5 +8,9 @@ class Expense < ApplicationRecord
 
   by_star_field :date_expense
 
+  scope :this_month, -> { where(date_expense: Time.now.beginning_of_month..Time.now.end_of_month) }
+
+  scope :last_month, -> { where(:date_expense => 1.month.ago.beginning_of_month..1.month.ago.end_of_month) }
+
 
 end
