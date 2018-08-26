@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.0'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'groupdate'
 gem "chartkick"
-
+gem 'googlecharts'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

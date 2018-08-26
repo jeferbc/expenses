@@ -70,6 +70,7 @@ GEM
     ffi (1.9.23)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    googlecharts (1.6.12)
     groupdate (4.0.1)
       activesupport (>= 4.2)
     i18n (0.9.5)
@@ -181,6 +182,7 @@ DEPENDENCIES
   chartkick
   chronic
   coffee-rails (~> 4.1.0)
+  googlecharts
   groupdate
   jbuilder (~> 2.0)
   jquery-rails
