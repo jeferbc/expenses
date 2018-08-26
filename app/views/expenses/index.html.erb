@@ -31,29 +31,18 @@
 
 
 <!-- Inicio de sumas y promedio -->
-      <div class="row" style="margin-top: 10px;">
+      <div class="row" style="margin-top: 10px;" id="sum-box">
         <div class="row" style="margin-top: 10px;">
           <div class="summary-box col-md-4 text-center">
-              <div class="summary-value">
-                $ <%= @expenses.sum(:amount) %>
-              </div>
+              <div class="summary-value" id="get_sum">$ <%= @total %></div>
             <div class="summary-label">Total</div>
           </diV>
           <div class="summary-box col-md-4 text-center">
-            <div class="summary-value"><%= @expenses.count %></div>
+            <div class="summary-value" id="get_count"><%= @total_count %></div>
             <div class="summary-label">Transactions</div>
           </div>
           <div class="summary-box col-md-4 text-center">
-            <% if (@expenses.sum(:amount)) == 0 %>
-              <div class="summary-value">
-                $ 0
-              </div>
-            <% else %>
-              <div class="summary-value">
-                <% average = number_with_precision(@expenses.sum(:amount) / @expenses.count(:id), :precision => 2) %>
-                $ <%= average %>
-              </div>
-            <% end %>
+              <div class="summary-value" id="average">$ <%= @average_expense %></div>
             <div class="summary-label">Average</div>
           </div>
         </div>
@@ -66,10 +55,7 @@
           <%= link_to "<span class='glyphicon glyphicon-plus'></span> New Expense".html_safe, new_expense_path, remote: true, class: "btn btn-success pull-left", id: "nuevo" %>
           <h4 class="dropdown pull-right">
             <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">
-
-
               <%= @date = Date.today.strftime("%B %Y") %>
-
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
