@@ -1,2 +1,8 @@
 $('#dialog').modal('toggle');
 $('#customer_<%= @expense.id %>').replaceWith('<%= j render (@expense) %>')
+$('#get_sum').empty()
+$('#get_sum').append('<%= @total %>')
+$('#get_count').empty()
+$('#get_count').append('<%= @total_count %>')
+$('#average').empty()
+$('#average').append('<%= @average_expense %>')

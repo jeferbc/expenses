@@ -4,13 +4,27 @@ class ExpensesController < ApplicationController
   def index
     @tab = :expenses
     if params[:category_id]
-      @expenses = Expense.where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
+      @expenses = Expense.all.by_month(Date.today).where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
+      @total = Expense.all.by_month(params[:month]).get_sum
+      @total_count = Expense.all.by_month(params[:month]).get_count
+      @average_expense = Expense.all.by_month(params[:month]).average_expense
     elsif params[:purchase_id]
-      @expenses = Expense.where("purchase_id LIKE :purchase_id", purchase_id: "%#{params[:purchase_id]}%")
+      @expenses = Expense.all.by_month(Date.today).where("purchase_id LIKE :purchase_id", purchase_id: "%#{params[:purchase_id]}%")
+      @total = Expense.all.by_month(params[:month]).get_sum
+      @total_count = Expense.all.by_month(params[:month]).get_count
+      @average_expense = Expense.all.by_month(params[:month]).average_expense
     elsif params[:month]
       @expenses = Expense.all.by_month(params[:month])
+      @expenses = Expense.all.by_month(params[:month]).where("purchase_id LIKE :purchase_id", purchase_id: "%#{params[:purchase_id]}%")
+      @expenses = Expense.all.by_month(params[:month]).where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
+      @total = Expense.all.by_month(params[:month]).get_sum
+      @total_count = Expense.all.by_month(params[:month]).get_count
+      @average_expense = Expense.all.by_month(params[:month]).average_expense
     else
       @expenses = Expense.all.by_month(Date.today)
+      @total = Expense.all.by_month(params[:month]).get_sum
+      @total_count = Expense.all.by_month(params[:month]).get_count
+      @average_expense = Expense.all.by_month(params[:month]).average_expense
     end
   end
 
@@ -25,6 +39,9 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
+        @total = Expense.all.by_month(params[:month]).get_sum
+        @total_count = Expense.all.by_month(params[:month]).get_count
+        @average_expense = Expense.all.by_month(params[:month]).average_expense
         format.json { head :no_content}
         format.js { flash[:notice] =  'Expense has been create successfully'}
       else
@@ -39,6 +56,9 @@ class ExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @expense.update(expenses_params)
+        @total = Expense.all.by_month(params[:month]).get_sum
+        @total_count = Expense.all.by_month(params[:month]).get_count
+        @average_expense = Expense.all.by_month(params[:month]).average_expense
         format.json { head }
         format.js { flash[:notice] =  'Expense has been updated successfully'}
       else
@@ -52,6 +72,9 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.destroy
+        @total = Expense.all.by_month(params[:month]).get_sum
+        @total_count = Expense.all.by_month(params[:month]).get_count
+        @average_expense = Expense.all.by_month(params[:month]).average_expense
         format.json { head :no_content }
         format.js { flash[:notice] =  'Expense DELETE'}
       else

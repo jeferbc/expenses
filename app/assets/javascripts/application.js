@@ -31,3 +31,44 @@ $(document).ajaxError(function(event,xhr,options,exc) {
     $("#error_explanation").html(er);
 
 });
+
+
+
+// window.onload = function () {
+//     var chart = new CanvasJS.Chart("chartContainer", {
+//         data: [
+//         {
+//             type: "column",
+//             dataPoints: [
+//             { label: "enero", y: 10 },
+//             { label: "febrero", y: 15 },
+//             { label: "Marzo", y: 25 },
+//             ]
+//         }
+//         ]
+//     });
+//
+//     chart.render();
+// }
+
+
+window.onload = function () {
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        data: [
+          <%  @expenses.each do |d| %>
+            {
+              type: "column",
+              dataPoints: [
+                <% d["name"].each do |e| %>
+                  {  y: <%= e["amount"] %> , label: "<%= e["name"] %>" },
+                <% end %>
+              ]
+            },
+          <% end %>
+        ]
+    });
+
+    chart.render();
+
+}
