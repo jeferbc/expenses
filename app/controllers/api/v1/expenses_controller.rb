@@ -28,7 +28,12 @@ module Api
               render json: @expense, status: 200
             else
               resder json: { errors: @expense.erros }, status: 422
-            end 
+            end
+          end
+
+          def destroy
+            @expense.destroy
+            render json: @expenses, status: 204
           end
 
           def expenses_params
