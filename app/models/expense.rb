@@ -2,7 +2,7 @@ class Expense < ApplicationRecord
   belongs_to :category
   belongs_to :purchase
 
-  validates :name, :amount, :date_expense, presence: true
+  validates :name, :amount, :date_expense, presence:, category_id:, :purchase_id, true
   validates :amount, presence: true, numericality: true
 
 
