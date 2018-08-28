@@ -6,6 +6,4 @@ class DashboardController < ApplicationController
     @this_month = Expense.this_month.sum(:amount)
     @last_month = Expense.last_month.sum(:amount)
   end
-
-
 end
