@@ -6,4 +6,15 @@ class DashboardController < ApplicationController
     @this_month = Expense.this_month.sum(:amount)
     @last_month = Expense.last_month.sum(:amount)
   end
+
+  def last_six_months
+    @expenses = Expense.six_month.group(:name)
+    @purchases = Purchase.all
+  end
+
+  def by_day
+    @expenses = Expense.six_month.group(:name)
+    @purchases = Purchase.all
+  end
+
 end

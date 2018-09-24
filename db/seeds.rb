@@ -29,3 +29,13 @@ Purchase.find_or_create_by(name_purchases: "Retiro")
 Purchase.find_or_create_by(name_purchases: "Transferencia")
 
 Purchase.find_or_create_by(name_purchases: "Pago")
+
+300.times do
+  Expense.create([{
+    name: Faker::Commerce.product_name,
+    amount: rand(1000..2000000),
+    date_expense: Faker::Date.between(6.month.ago, Date.today),
+    category_id: rand(1..8),
+    purchase_id: rand(1..4)
+    }])
+end

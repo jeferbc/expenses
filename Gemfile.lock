@@ -5,6 +5,14 @@ GIT
     by_star (3.0.0)
       activesupport (> 3)
 
+GIT
+  remote: https://github.com/stympy/faker.git
+  revision: e220758871e64b85e799efc6143617b1cb722761
+  branch: master
+  specs:
+    faker (1.9.1)
+      i18n (>= 0.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -183,6 +191,7 @@ DEPENDENCIES
   chartkick
   chronic
   coffee-rails (~> 4.1.0)
+  faker!
   googlecharts
   groupdate
   jbuilder (~> 2.0)
