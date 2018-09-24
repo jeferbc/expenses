@@ -12,7 +12,7 @@ class Expense < ApplicationRecord
 
   scope :last_month, -> { where(:date_expense => 1.month.ago.beginning_of_month..1.month.ago.end_of_month) }
 
-  scope :six_month, -> { where(:date_expense => 6.month.ago.beginning_of_month..6.month.ago.end_of_month) }
+  scope :six_month, -> { where(:date_expense => 6.month.ago.beginning_of_month..1.month.ago.end_of_month) }
 
   scope :get_sum, -> { self.sum(:amount)}
   scope :get_count, -> { self.count}

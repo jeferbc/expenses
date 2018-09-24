@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root "dashboard#index"
 
+  get  "/dashboard/last_six_months", to: "dashboard#last_six_months"
+
   resources :expenses
 
   namespace :api, defaults: {format: :json} do
