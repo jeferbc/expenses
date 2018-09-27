@@ -6,6 +6,7 @@ class Charts
     $(document).on("turbolinks:load", @last_six_months);
     $(document).on("turbolinks:load", @by_day);
     $(document).on("turbolinks:load", @by_category);
+    $(document).on("turbolinks:load", @acum);
 
   last_six_months:() =>
     $.ajax '/dashboard/last_six_months.json',
@@ -52,4 +53,18 @@ class Charts
           )
           chart.render();
 
+  acum:() =>
+      $.ajax '/dashboard/acum.json',
+        type: 'GET'
+        dataType: "json"
+        success: (data, textStatus, jqXHR) =>
+          chart = new CanvasJS.Chart("acum",
+            title:{
+  		          text: "Acumulado"
+  	        },
+            backgroundColor: '#848484',
+            animationEnabled: true,
+            data: data
+          )
+          chart.render();
 window.Charts = Charts

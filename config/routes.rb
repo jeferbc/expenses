@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get  "/dashboard/last_six_months", to: "dashboard#last_six_months"
   get  "/dashboard/by_day", to: "dashboard#by_day"
   get  "/dashboard/by_category", to: "dashboard#by_category"
-
+  get  "/dashboard/acum", to: "dashboard#acum"
 
   resources :expenses
 
