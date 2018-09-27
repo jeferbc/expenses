@@ -34,7 +34,7 @@
       <div class="row" style="margin-top: 10px;" id="sum-box">
         <div class="row" style="margin-top: 10px;">
           <div class="summary-box col-md-4 text-center">
-              <div class="summary-value" id="get_sum">$ <%= @total %></div>
+              <div class="summary-value" id="get_sum">$ <%= @total.to_i %></div>
             <div class="summary-label">Total</div>
           </diV>
           <div class="summary-box col-md-4 text-center">
@@ -44,7 +44,7 @@
           <div class="summary-box col-md-4 text-center">
               <div class="summary-value" id="average">
                 <% if(@average_expense.nan? == false) %>
-                $ <%= @average_expense %>
+                $ <%= @average_expense.to_i %>
                 <% else %>
                 $ 0
                 <% end %>
