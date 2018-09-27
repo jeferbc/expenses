@@ -21,4 +21,8 @@ class DashboardController < ApplicationController
     @expenses = Expense.all.group(:category_id)
   end
 
+  def acum
+    @expenses = Expense.all.group_by_month(:date_expense, last: 6)
+  end
+
 end
