@@ -14,6 +14,4 @@ $ ->
 $(‘body’).off 'click.confirm'
 $(‘body’).on 'click.confirm', -> $.rails.confirmed(link)
 
-
-
 $(document).on "page:change", ->

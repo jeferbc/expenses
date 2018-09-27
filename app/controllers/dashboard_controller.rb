@@ -13,8 +13,12 @@ class DashboardController < ApplicationController
   end
 
   def by_day
-    @expenses = Expense.six_month.group(:name)
+    @expenses = Expense.where(date_expense: Date.today).group(:name)
     @purchases = Purchase.all
+  end
+
+  def by_category
+    @expenses = Expense.all.group(:category_id)
   end
 
 end

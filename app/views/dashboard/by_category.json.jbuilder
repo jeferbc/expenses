@@ -1,10 +1,10 @@
 json.array! @expenses do |expense|
-  json.type "bar"
+  json.type "pie"
   json.showInLegend false
   json.dataPoints do
     json.array! @expenses do |expense|
       json.y expense.id
-      json.label expense.name
+      json.label expense.category_id
     end
   end
 end
