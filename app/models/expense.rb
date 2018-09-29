@@ -5,7 +5,6 @@ class Expense < ApplicationRecord
   validates :name, :date_expense, :category_id, :purchase_id, presence: true
   validates :amount, presence: true, numericality: true
 
-
   by_star_field :date_expense
 
   scope :this_month, -> { where(date_expense: Time.now.beginning_of_month..Time.now.end_of_month) }
