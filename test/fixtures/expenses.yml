@@ -1,0 +1,7 @@
+one:
+  id: 1
+  name: "Test"
+  amount: 12345
+  date_expense: "2018-08-31"
+  category_id: 1
+  purchase_id: 1
