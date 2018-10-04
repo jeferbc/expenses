@@ -43,6 +43,7 @@ group :development, :test do
   gem 'byebug'
   gem 'minitest-reporters'
   gem 'rails-controller-testing'
+  gem 'minitest-rails-capybara'
 end
 
 group :development do
