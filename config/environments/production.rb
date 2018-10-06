@@ -1,5 +1,4 @@
 Rails.application.configure do
-      config.assets.initialize_on_precompile = false
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -85,5 +84,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  RAILS_ENV=production bundle exec rake assets:precompile
 end
