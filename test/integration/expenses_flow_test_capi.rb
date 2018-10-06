@@ -9,5 +9,4 @@ class ExpensesFlowTest < Capybara::Rails::TestCase
     visit '/expenses'
     assert page.has_content?(@one.id)
   end
-
 end
