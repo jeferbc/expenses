@@ -11,7 +11,7 @@ $ ->
     link.removeAttr('data-confirm')
     link.trigger('click.rails')
 
-$(‘body’).off 'click.confirm'
-$(‘body’).on 'click.confirm', -> $.rails.confirmed(link)
+$('body').off 'click.confirm'
+$('body').on 'click.confirm', -> $.rails.confirmed(link)
 
 $(document).on "page:change", ->
