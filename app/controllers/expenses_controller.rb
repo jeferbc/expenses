@@ -4,7 +4,7 @@ class ExpensesController < ApplicationController
   def index
     @tab = :expenses
     if params[:category_id]
-      @expenses = Expense.all.by_month(Date.today).where("category_id ILIKE :category_id ?", category_id: "%#{params[:category_id]}%")
+      @expenses = Expense.all.by_month(Date.today).where("category_id LIKE :category_id ?", category_id: "%#{params[:category_id]}%")
       @total = Expense.all.by_month(params[:month]).get_sum
       @total_count = Expense.all.by_month(params[:month]).get_count
       @average_expense = Expense.all.by_month(params[:month]).average_expense
