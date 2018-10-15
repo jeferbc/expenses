@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get  "/dashboard/by_category", to: "dashboard#by_category"
   get  "/dashboard/acum", to: "dashboard#acum"
 
-  resources :expenses, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :expenses
 
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
