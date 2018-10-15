@@ -18,7 +18,6 @@
 //= require chartkick
 //= require raphael
 //= require morris
-//= require_tree .
 
 $(document).ajaxError(function (event, xhr, options, exc) {
 

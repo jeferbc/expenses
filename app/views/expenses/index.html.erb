@@ -43,11 +43,7 @@
           </div>
           <div class="summary-box col-md-4 text-center">
               <div class="summary-value" id="average">
-                <% if(@average_expense.nan? == false) %>
                 $ <%= @average_expense.to_i %>
-                <% else %>
-                $ 0
-                <% end %>
               </div>
             <div class="summary-label">Average</div>
           </div>
@@ -61,7 +57,7 @@
           <%= link_to "<span class='glyphicon glyphicon-plus'></span> New Expense".html_safe, new_expense_path, remote: true, class: "btn btn-success pull-left", id: "nuevo" %>
           <h4 class="dropdown pull-right">
             <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">
-              <%= @date = Date.today.strftime("%B %Y") %>
+              <%= @date %>
               <span class="caret"></span>
             </button>
             </select>

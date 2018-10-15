@@ -37,8 +37,7 @@ gem 'by_star', git: "git://github.com/radar/by_star"
 gem 'chronic'
 
 group :development, :test do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  gem 'pg', '~> 0.18.4'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'minitest-reporters'
