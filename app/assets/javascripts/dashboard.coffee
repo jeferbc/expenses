@@ -67,4 +67,5 @@ class Charts
             data: data
           )
           chart.render();
+
 window.Charts = Charts

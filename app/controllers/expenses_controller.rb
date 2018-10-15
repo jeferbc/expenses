@@ -2,30 +2,14 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
 
   def index
+    @date = params[:month] ? @date = params[:month] : Date.today.strftime("%B %Y")
+    @expenses = Expense.all.by_month(@date).order("date_expense DESC")
+    @total = @expenses.get_sum
+    @total_count = @expenses.get_count
+    @average_expense = @total == 0 ? @average_expense = 0 : @average_expense = @expenses.average_expense.to_i
+    @expenses = @expenses.where(purchase_id: params[:purchase_id]) if params[:purchase_id]
+    @expenses = @expenses.where(category_id: params[:category_id]) if params[:category_id]
     @tab = :expenses
-    if params[:category_id]
-      @expenses = Expense.all.by_month(Date.today).where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
-      @total = Expense.all.by_month(params[:month]).get_sum
-      @total_count = Expense.all.by_month(params[:month]).get_count
-      @average_expense = Expense.all.by_month(params[:month]).average_expense
-    elsif params[:purchase_id]
-      @expenses = Expense.all.by_month(Date.today).where("purchase_id LIKE :purchase_id", purchase_id: "%#{params[:purchase_id]}%")
-      @total = Expense.all.by_month(params[:month]).get_sum
-      @total_count = Expense.all.by_month(params[:month]).get_count
-      @average_expense = Expense.all.by_month(params[:month]).average_expense
-    elsif params[:month]
-      @expenses = Expense.all.by_month(params[:month])
-      @expenses = Expense.all.by_month(params[:month]).where("purchase_id LIKE :purchase_id", purchase_id: "%#{params[:purchase_id]}%")
-      @expenses = Expense.all.by_month(params[:month]).where("category_id LIKE :category_id", category_id: "%#{params[:category_id]}%")
-      @total = Expense.all.by_month(params[:month]).get_sum
-      @total_count = Expense.all.by_month(params[:month]).get_count
-      @average_expense = Expense.all.by_month(params[:month]).average_expense
-    else
-      @expenses = Expense.all.by_month(Date.today)
-      @total = Expense.all.by_month(params[:month]).get_sum
-      @total_count = Expense.all.by_month(params[:month]).get_count
-      @average_expense = Expense.all.by_month(params[:month]).average_expense
-    end
   end
 
   def new
@@ -39,10 +23,12 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
-        @total = Expense.all.by_month(params[:month]).get_sum
-        @total_count = Expense.all.by_month(params[:month]).get_count
-        @average_expense = Expense.all.by_month(params[:month]).average_expense
-        format.json { head :no_content}
+        @date = params[:month] ? @date = params[:month] : Date.today.strftime("%B %Y")
+        @expenses = Expense.all.by_month(@date).order("date_expense DESC")
+        @total = @expenses.get_sum
+        @total_count = @expenses.get_count
+        @average_expense = @expenses.average_expense.to_i
+        format.json { head }
         format.js { flash[:notice] =  'Expense has been create successfully'}
       else
         format.json { render json: @expense.errors.full_messages, status: :unprocessable_entity }
@@ -56,9 +42,11 @@ class ExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @expense.update(expenses_params)
-        @total = Expense.all.by_month(params[:month]).get_sum
-        @total_count = Expense.all.by_month(params[:month]).get_count
-        @average_expense = Expense.all.by_month(params[:month]).average_expense
+        @date = params[:month] ? @date = params[:month] : Date.today.strftime("%B %Y")
+        @expenses = Expense.all.by_month(@date).order("date_expense DESC")
+        @total = @expenses.get_sum
+        @total_count = @expenses.get_count
+        @average_expense = @expenses.average_expense.to_i
         format.json { head }
         format.js { flash[:notice] =  'Expense has been updated successfully'}
       else
@@ -68,19 +56,16 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
-    @expense = Expense.find(params[:id])
-
-    respond_to do |format|
-      if @expense.destroy
-        @total = Expense.all.by_month(params[:month]).get_sum
-        @total_count = Expense.all.by_month(params[:month]).get_count
-        @average_expense = Expense.all.by_month(params[:month]).average_expense
-        format.json { head :no_content }
-        format.js { flash[:notice] =  'Expense DELETE'}
-      else
-        format.json { render json: @expense.errors.full_messages, status: :unprocessable_entity }
-      end
-    end
+        @expense.destroy
+        @date = params[:month] ? @date = params[:month] : Date.today.strftime("%B %Y")
+        @expenses = Expense.all.by_month(@date).order("date_expense DESC")
+        @total = @expenses.get_sum
+        @total_count = @expenses.get_count
+        @average_expense = @expenses.average_expense.to_i
+        respond_to do |format|
+          format.json { head :no_content}
+          format.js { flash[:notice] =  'Expense DELETE'}
+        end
   end
 
   private
