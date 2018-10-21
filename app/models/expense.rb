@@ -17,4 +17,8 @@ class Expense < ApplicationRecord
   scope :get_count, -> { self.count}
   scope :average_expense, -> { self.sum(:amount) / self.count(:id) }
 
+  def self.full_column_names
+    column_names.collect {|name| "\"#{table_name}\".\"#{name}\"" }
+  end
+
 end

@@ -18,7 +18,7 @@ class DashboardController < ApplicationController
   end
 
   def by_category
-    @expenses = Expense.all.group(:category_id)
+    @expenses = Expense.all.select(:category_id, :name).group(:category_id, :name)
   end
 
   def acum
