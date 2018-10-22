@@ -8,21 +8,19 @@ class DashboardController < ApplicationController
   end
 
   def last_six_months
-    @expenses = Expense.six_month.group(:name)
-    @purchases = Purchase.all
+    @expenses = Expense.six_month.select(:purchase_id, :id).group( :purchase_id, :id)
   end
 
   def by_day
-    @expenses = Expense.where(date_expense: Date.today).group(:name)
-    @purchases = Purchase.all
+    @expenses = Expense.where(date_expense: Date.today).select(:purchase_id, :id, :amount).group(:purchase_id, :id, :amount)
   end
 
   def by_category
-    @expenses = Expense.all.select(:category_id, :name).group(:category_id, :name)
+    @expenses = Expense.all.select(:category_id).group(:category_id)
   end
 
   def acum
-    @expenses = Expense.all.group_by_month(:date_expense, last: 6)
+    @expenses = Expense.all.select(:date_expense, :amount).group(:date_expense, :amount).group_by_month(:date_expense, last: 2)
   end
 
 end
