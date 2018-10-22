@@ -16,7 +16,7 @@
 //= require turbolinks
 //= require Chart.bundle
 //= require chartkick
-//= require_tree 
+//= require_tree .
 
 $(document).ajaxError(function (event, xhr, options, exc) {
     var errors = JSON.parse(xhr.responseText);
